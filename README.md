@@ -16,6 +16,8 @@ Install package:
 To verify whether a signature is valid use one of:
 
 ```typescript
+import { signatureHelper } from 'wip-webhook-helper';
+
 const isValid = signatureHelper.isValidSignatureFromString(
     payload, // payload converted to string 
     secret, // secret can be obtained from Webhook definition in Kentico Kontent project
@@ -23,6 +25,8 @@ const isValid = signatureHelper.isValidSignatureFromString(
 ```
 
 ```typescript
+import { signatureHelper } from 'wip-webhook-helper';
+
 const isValid = signatureHelper.isValidSignatureFromBinary(
     payload, // payload in a binary format (e.g. 'req.body' in node.js HTTP POST request object)
     secret, // secret can be obtained from Webhook definition in Kentico Kontent project
@@ -32,9 +36,13 @@ const isValid = signatureHelper.isValidSignatureFromBinary(
 ### Generate hash
 
 ```typescript
+import { signatureHelper } from 'wip-webhook-helper';
+
 const hash = signatureHelper.getHashFromString(payload, secret);
 ```
 
 ```typescript
+import { signatureHelper } from 'wip-webhook-helper';
+
 const hash = signatureHelper.getHashFromBinary(payload, secret);
 ```
