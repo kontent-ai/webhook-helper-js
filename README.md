@@ -1,4 +1,4 @@
-
+[![npm version](https://badge.fury.io/js/wip-webhook-helper.svg)](https://badge.fury.io/js/wip-webhook-helper.svg)
 
 # Kontent Webhook helper
 
