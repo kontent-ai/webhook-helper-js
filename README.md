@@ -3,7 +3,7 @@
 # Kontent Webhook helper
 
 
-This package aims to help you with Webhooks received from Kentico Kontent projects. Currently, it contains methods for verifying webhook validity as per [https://docs.kontent.ai/reference/webhooks-reference#a-notification-signatures](signatures).
+This package aims to help you with Webhooks received from Kentico Kontent projects. Currently, it contains methods for verifying webhook validity as per [signatures](https://docs.kontent.ai/reference/webhooks-reference#a-notification-signatures).
 
 ## Installation
 
