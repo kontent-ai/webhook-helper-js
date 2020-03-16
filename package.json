@@ -1,6 +1,6 @@
 {
   "name": "wip-webhook-helper",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "This utility helps with webhook notifications from Kentico Kontent",
   "repository": {
     "type": "git",
