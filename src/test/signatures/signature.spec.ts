@@ -1,4 +1,4 @@
-import { signatureHelper } from '../';
+import { signatureHelper } from '../..';
 import { expect } from 'chai';
 
 const secret: string = '4INSnqn9ZA9pOWHpRySS+rsEqL6qHF3CIAftipJeuDc=';
@@ -29,7 +29,7 @@ const payload: string = `{
 const generatedHesh = signatureHelper.getHashFromString(signatureHelper.replaceLinebreaks(payload), secret);
 const isValid = signatureHelper.isValidSignatureFromString(signatureHelper.replaceLinebreaks(payload), secret, signature);
 
-describe('# Base signature', () => {
+describe('# Signatures', () => {
 
     it('Signature should be valid', () => {
         expect(isValid).to.equal(true);

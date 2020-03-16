@@ -1,0 +1,29 @@
+{
+    "data": {
+        "items": [
+            {
+                "item": {
+                    "id": "65f05e0f-40c3-436b-a641-e2d4cae16e46"
+                },
+                "language": {
+                    "id": "00000000-0000-0000-0000-000000000000"
+                },
+                "transition_from": {
+                    "id": "eee6db3b-545a-4785-8e86-e3772c8756f9"
+                },
+                "transition_to": {
+                    "id": "03b6ebd3-2f49-4621-92fd-4977b33681d1"
+                }
+            }
+        ]
+    },
+    "message": {
+        "id": "e1b372a2-1186-4929-b370-904c59f060b7",
+        "project_id": "bf32e7ab-85c3-0073-47b9-90838a8462de",
+        "type": "taxonomy",
+        "operation": "upsert",
+        "api_name": "delivery_production",
+        "created_timestamp": "2019-07-18T10:52:33.1059256Z",
+        "webhook_url": "https://myapp.com/webhook-endpoint"
+    }
+}
