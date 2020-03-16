@@ -26,8 +26,8 @@ const payload: string = `{
   }
 }`;
 
-const generatedHesh = signatureHelper.getHashFromString(payload, secret);
-const isValid = signatureHelper.isValidSignatureFromString(payload, secret, signature);
+const generatedHesh = signatureHelper.getHashFromString(signatureHelper.replaceLinebreaks(payload), secret);
+const isValid = signatureHelper.isValidSignatureFromString(signatureHelper.replaceLinebreaks(payload), secret, signature);
 
 describe('# Base signature', () => {
 
