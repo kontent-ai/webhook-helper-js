@@ -5,8 +5,8 @@
 
 This package aims to help you with Webhooks received from Kentico Kontent projects. Currently, it: 
 
-⋅⋅* Helps with signature verification as per [signatures](https://docs.kontent.ai/reference/webhooks-reference#a-notification-signatures) 
-⋅⋅* Provides types for webhook response (only for `Typescript`)
+* Helps with signature verification as per [signatures](https://docs.kontent.ai/reference/webhooks-reference#a-notification-signatures) 
+* Provides types for webhook response (only for `Typescript`)
 
 ## Installation
 
