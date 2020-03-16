@@ -7,7 +7,7 @@
     "url": "https://github.com/Enngage/kontent-webhook-helper"
   },
   "author": "richard sustek",
-  "main": "./_commonjs/src/app.js",
+  "main": "./_commonjs/index.js",
   "directories": {},
   "scripts": {
     "release": "standard-version",
