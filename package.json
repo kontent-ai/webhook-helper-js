@@ -1,10 +1,10 @@
 {
-  "name": "wip-webhook-helper",
-  "version": "0.0.4",
+  "name": "@kentico/kontent-webhook-helper",
+  "version": "1.0.0",
   "description": "This utility helps with webhook notifications from Kentico Kontent",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Enngage/kontent-webhook-helper"
+    "url": "https://github.com/Kentico/kontent-webhook-helper-js"
   },
   "author": "richard sustek",
   "main": "./_commonjs/index.js",

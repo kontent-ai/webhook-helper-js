@@ -1,4 +1,4 @@
-[![npm version](https://badge.fury.io/js/wip-webhook-helper.svg)](https://www.npmjs.com/package/wip-webhook-helper)
+[![npm version](https://badge.fury.io/js/@kentico/kontent-webhook-helper.svg)](https://www.npmjs.com/package/@kentico/kontent-webhook-helper)
 
 # Kontent Webhook helper
 
@@ -12,14 +12,14 @@ This package aims to help you with Webhooks received from Kentico Kontent projec
 
 Install package:
 
-`npm i wip-webhook-helper`
+`npm i @kentico/kontent-webhook-helper`
 
 ### Signature verification
 
 To verify whether a signature is valid use:
 
 ```typescript
-import { signatureHelper } from 'wip-webhook-helper';
+import { signatureHelper } from '@kentico/kontent-webhook-helper';
 
 const isValid = signatureHelper.isValidSignatureFromString(
     payload, // payload converted to string 
@@ -30,7 +30,7 @@ const isValid = signatureHelper.isValidSignatureFromString(
 ### Generate hash
 
 ```typescript
-import { signatureHelper } from 'wip-webhook-helper';
+import { signatureHelper } from '@kentico/kontent-webhook-helper';
 
 const hash = signatureHelper.getHashFromString(payload, secret);
 ```
@@ -42,7 +42,7 @@ If you are using `Typescript` you may use provided interfaces to access webhook 
 #### Delivery webhook response
 
 ```typescript
-import { IWebhookWorkflowResponse } from 'wip-webhook-helper';
+import { IWebhookWorkflowResponse } from '@kentico/kontent-webhook-helper';
 
 const rawResponse = {
     "data": {
@@ -78,7 +78,7 @@ const response = rawResponse as IWebhookDeliveryResponse;
 #### Workflow webhook response
 
 ```typescript
-import { IWebhookWorkflowResponse } from 'wip-webhook-helper';
+import { IWebhookWorkflowResponse } from '@kentico/kontent-webhook-helper';
 
 const rawResponse = {
     "data": {
