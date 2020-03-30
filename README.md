@@ -1,4 +1,4 @@
-[![npm version](https://badge.fury.io/js/@kentico/kontent-webhook-helper.svg)](https://www.npmjs.com/package/@kentico/kontent-webhook-helper)
+[![npm version](https://badge.fury.io/js/%40kentico%2Fkontent-webhook-helper.svg)](https://badge.fury.io/js/%40kentico%2Fkontent-webhook-helper)
 
 # Kontent Webhook helper
 
