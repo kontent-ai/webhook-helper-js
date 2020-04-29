@@ -1,6 +1,6 @@
 export type WebhookType = 'asset' | 'content_item' | 'content_item_variant' | 'content_type' | 'language_settings' | 'project' | 'sitemap' | 'taxonomy';
 export type WebhookOperation = 'upsert' | 'archive' | 'change_workflow_step' | 'restore' | 'publish' | 'unpublish';
-export type WebhookApiName = 'delivery_production' | 'content_management';
+export type WebhookApiName = 'delivery_production' | 'delivery_production' | 'content_management';
 
 export interface IWebhookResponse<TData> {
     data: TData,
