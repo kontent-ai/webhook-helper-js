@@ -42,7 +42,7 @@ If you are using `Typescript` you may use provided interfaces to access webhook 
 #### Delivery webhook response
 
 ```typescript
-import { IWebhookWorkflowResponse } from '@kentico/kontent-webhook-helper';
+import { IWebhookDeliveryResponse } from '@kentico/kontent-webhook-helper';
 
 const rawResponse = {
     "data": {
