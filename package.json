@@ -35,11 +35,11 @@
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
-    "chai": "4.2.0",
-    "mocha": "7.1.0",
     "@types/chai": "4.2.10",
     "@types/mocha": "7.0.2",
     "@types/node": "13.9.1",
+    "chai": "4.2.0",
+    "mocha": "^7.1.2",
     "standard-version": "7.1.0",
     "tslint": "6.1.0",
     "typescript": "3.8.3"
