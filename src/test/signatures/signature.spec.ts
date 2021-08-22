@@ -2,13 +2,14 @@ import { signatureHelper } from '../..';
 import { expect } from 'chai';
 
 const secret: string = '4INSnqn9ZA9pOWHpRySS+rsEqL6qHF3CIAftipJeuDc=';
-const signature: string = 'eOgrznqBtHRbFzp1NZsirKAqe7d8SiPf2Dns+Ib6Aso=';
+const signature: string = '5+vhM4vWobuiwGyLSGqOL7KwXnaQXISzuKUxhI4xL3o=';
 const payload: string = `{
   "data": {
     "items": [
       {
         "id": "f0e9e9fa-91e8-40d5-9527-b7e0ae51fc54",
         "codename": "christian_bale",
+        "collection": "default",
         "language": "en",
         "type": "actor"
       }
@@ -27,15 +28,18 @@ const payload: string = `{
 }`;
 
 const generatedHesh = signatureHelper.getHashFromString(signatureHelper.replaceLinebreaks(payload), secret);
-const isValid = signatureHelper.isValidSignatureFromString(signatureHelper.replaceLinebreaks(payload), secret, signature);
+const isValid = signatureHelper.isValidSignatureFromString(
+    signatureHelper.replaceLinebreaks(payload),
+    secret,
+    signature
+);
 
 describe('# Signatures', () => {
-
     it('Signature should be valid', () => {
         expect(isValid).to.equal(true);
     });
 
     it('Generated hash should match signature', () => {
-        expect(generatedHesh).to.equal('eOgrznqBtHRbFzp1NZsirKAqe7d8SiPf2Dns+Ib6Aso=');
+        expect(generatedHesh).to.equal(signature);
     });
 });

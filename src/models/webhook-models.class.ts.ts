@@ -1,10 +1,18 @@
-export type WebhookType = 'asset' | 'content_item' | 'content_item_variant' | 'content_type' | 'language_settings' | 'project' | 'sitemap' | 'taxonomy';
+export type WebhookType =
+    | 'asset'
+    | 'content_item'
+    | 'content_item_variant'
+    | 'content_type'
+    | 'language_settings'
+    | 'project'
+    | 'sitemap'
+    | 'taxonomy';
 export type WebhookOperation = 'upsert' | 'archive' | 'change_workflow_step' | 'restore' | 'publish' | 'unpublish';
 export type WebhookApiName = 'delivery_production' | 'delivery_preview' | 'content_management';
 
 export interface IWebhookResponse<TData> {
-    data: TData,
-    message: IWebhookMessage
+    data: TData;
+    message: IWebhookMessage;
 }
 
 export interface IWebhookMessage {
@@ -20,6 +28,7 @@ export interface IWebhookMessage {
 export interface IWebhookDeliveryItem {
     id: string;
     codename: string;
+    collection: string;
     language: string;
     type: string;
 }
