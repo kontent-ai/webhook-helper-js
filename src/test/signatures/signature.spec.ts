@@ -40,6 +40,6 @@ describe('# Signatures', () => {
     });
 
     it('Generated hash should match signature', () => {
-        expect(generatedHesh).to.equal(signature);
+        expect(generatedHesh).to.equal('5+vhM4vWobuiwGyLSGqOL7KwXnaQXISzuKUxhI4xL3o=');
     });
 });
