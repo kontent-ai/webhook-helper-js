@@ -51,6 +51,7 @@ const rawResponse = {
             {
                 "id": "e5d575fe-9608-4523-a07d-e32d780bf92a",
                 "codename": "this_article_changed",
+                "collection": "default",
                 "language": "en-US",
                 "type": "article"
             }
