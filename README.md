@@ -4,7 +4,7 @@
 # Kontent Webhook helper
 
 
-This package aims to help you with Webhooks received from Kentico Kontent projects. Currently, it: 
+This package aims to help you with Webhooks received from Kontent by Kentico projects. Currently, it: 
 
 * Helps with signature verification as per [signatures](https://docs.kontent.ai/reference/webhooks-reference#a-notification-signatures) 
 * Provides types for webhook response (only for `Typescript`)
@@ -24,7 +24,7 @@ import { signatureHelper } from '@kentico/kontent-webhook-helper';
 
 const isValid = signatureHelper.isValidSignatureFromString(
     payload, // payload converted to string 
-    secret, // secret can be obtained from Webhook definition in Kentico Kontent project
+    secret, // secret can be obtained from Webhook definition in Kontent project
     signature // can be obtained from 'x-kc-signature' header present in webhook request);
 ```
 
