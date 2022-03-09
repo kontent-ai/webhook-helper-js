@@ -29,7 +29,7 @@ const isValid = signatureHelper.isValidSignatureFromString(
 ```
 
 Keep in mind that the contents of **payload** have to be exactly the same (including whitespaces) as the original webhook body, otherwise, the validation will fail. 
-If you already parsed the payload into a JSON object, you should be able to transform it back to the way it originaly was with these settings:
+If you already parsed the payload into an object, you should be able to transform it back to the way it originaly was with these settings:
 
 ```typescript
 const payload: string = JSON.stringify(jsonPayload,null,2);
