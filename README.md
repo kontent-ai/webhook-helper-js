@@ -23,9 +23,16 @@ To verify whether a signature is valid use:
 import { signatureHelper } from '@kentico/kontent-webhook-helper';
 
 const isValid = signatureHelper.isValidSignatureFromString(
-    payload, // payload converted to string 
+    payload, // the original string payload 
     secret, // secret can be obtained from Webhook definition in Kontent project
     signature // can be obtained from 'x-kc-signature' header present in webhook request);
+```
+
+Keep in mind that the contents of **payload** have to be exactly the same (including whitespaces) as the original webhook body, otherwise, the validation will fail. 
+If you already parsed the payload into an object, you should be able to transform it back to the way it originaly was with these settings:
+
+```typescript
+const payload: string = JSON.stringify(jsonPayload,null,2);
 ```
 
 ### Generate hash
