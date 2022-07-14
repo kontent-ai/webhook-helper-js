@@ -1,0 +1,28 @@
+{
+    "data": {
+        "items": [
+            {
+                "id": "e5d575fe-9608-4523-a07d-e32d780bf92a",
+                "codename": "this_article_changed",
+                "collection": "default",
+                "language": "en-US",
+                "type": "article"
+            }
+        ],
+        "taxonomies": [
+            {
+                "id": "4794dde6-f700-4a5d-b0dc-9ae16dcfc73d",
+                "codename": "personas"
+            }
+        ]
+    },
+    "message": {
+        "id": "e1b372a2-1186-4929-b370-904c59f060b7",
+        "project_id": "bf32e7ab-85c3-0073-47b9-90838a8462de",
+        "type": "taxonomy",
+        "operation": "upsert",
+        "api_name": "delivery_production",
+        "created_timestamp": "2019-07-18T10:52:33.1059256Z",
+        "webhook_url": "https://myapp.com/webhook-endpoint"
+    }
+}

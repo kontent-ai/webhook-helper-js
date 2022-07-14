@@ -1,9 +1,9 @@
-[![npm version](https://badge.fury.io/js/%40kentico%2Fkontent-webhook-helper.svg)](https://badge.fury.io/js/%40kentico%2Fkontent-webhook-helper)
-[![Build](https://github.com/Kentico/kontent-webhook-helper-js/actions/workflows/test.yml/badge.svg)](https://github.com/Kentico/kontent-webhook-helper-js/actions/workflows/test.yml)
+[![npm version](https://badge.fury.io/js/%40kontent-ai%2Fwebhook-helper.svg)](https://badge.fury.io/js/%40kontent-ai%2Fwebhook-helper)
+[![Build](https://github.com/kontent-ai/webhook-helper-js/actions/workflows/test.yml/badge.svg)](https://github.com/kontent-ai/webhook-helper-js/actions/workflows/test.yml)
 
 # Kontent Webhook helper
 
-This package aims to help you with Webhooks received from Kontent by Kentico projects. Currently, it: 
+This package aims to help you with Webhooks received from Kontent.ai projects. Currently, it: 
 
 * Helps with [signature verification](https://kontent.ai/learn/tutorials/develop-apps/integrate/webhooks#a-validate-received-notifications) 
 * Provides types for webhook response (only for `Typescript`)
@@ -12,14 +12,14 @@ This package aims to help you with Webhooks received from Kontent by Kentico pro
 
 Install package:
 
-`npm i @kentico/kontent-webhook-helper`
+`npm i @kontent-ai/webhook-helper`
 
 ### Signature verification
 
 To verify whether a signature is valid use:
 
 ```typescript
-import { signatureHelper } from '@kentico/kontent-webhook-helper';
+import { signatureHelper } from '@kontent-ai/webhook-helper';
 
 const isValid = signatureHelper.isValidSignatureFromString(
     payload, // the original string payload 
@@ -37,7 +37,7 @@ const payload: string = JSON.stringify(jsonPayload,null,2);
 ### Generate hash
 
 ```typescript
-import { signatureHelper } from '@kentico/kontent-webhook-helper';
+import { signatureHelper } from '@kontent-ai/webhook-helper';
 
 const hash = signatureHelper.getHashFromString(payload, secret);
 ```
@@ -49,7 +49,7 @@ If you are using `Typescript` you may use provided interfaces to access webhook 
 #### Delivery webhook response
 
 ```typescript
-import { IWebhookDeliveryResponse } from '@kentico/kontent-webhook-helper';
+import { IWebhookDeliveryResponse } from '@kontent-ai/webhook-helper';
 
 const rawResponse = {
     "data": {
@@ -86,7 +86,7 @@ const response = rawResponse as IWebhookDeliveryResponse;
 #### Workflow webhook response
 
 ```typescript
-import { IWebhookWorkflowResponse } from '@kentico/kontent-webhook-helper';
+import { IWebhookWorkflowResponse } from '@kontent-ai/webhook-helper';
 
 const rawResponse = {
     "data": {
