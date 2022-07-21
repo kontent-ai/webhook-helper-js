@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.1](https://github.com/kontent-ai/webhook-helper-js/compare/v2.0.0...v2.0.1) (2022-07-21)
+
+
+### Bug Fixes
+
+* fixes .npmignore so that dist files are uploaded to npm ([e991c31](https://github.com/kontent-ai/webhook-helper-js/commit/e991c31a8c311e3fe0d69e82c2b8135e74e769e0))
+
 ## [2.0.0](https://github.com/kontent-ai/webhook-helper-js/compare/v1.2.0...v2.0.0) (2022-07-14)
 
 ## [1.2.0](https://github.com/kontent-ai/webhook-helper-js/compare/v1.1.0...v1.2.0) (2021-08-25)
