@@ -1,7 +1,7 @@
 [![npm version](https://badge.fury.io/js/%40kontent-ai%2Fwebhook-helper.svg)](https://badge.fury.io/js/%40kontent-ai%2Fwebhook-helper)
 [![Build](https://github.com/kontent-ai/webhook-helper-js/actions/workflows/test.yml/badge.svg)](https://github.com/kontent-ai/webhook-helper-js/actions/workflows/test.yml)
 
-# Kontent Webhook helper
+# Kontent.ai Webhook helper
 
 This package aims to help you with Webhooks received from Kontent.ai projects. Currently, it: 
 
@@ -23,7 +23,7 @@ import { signatureHelper } from '@kontent-ai/webhook-helper';
 
 const isValid = signatureHelper.isValidSignatureFromString(
     payload, // the original string payload 
-    secret, // secret can be obtained from Webhook definition in Kontent project
+    secret, // secret can be obtained from Webhook definition in Kontent.ai project
     signature // can be obtained from 'x-kc-signature' header present in webhook request);
 ```
 
