@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.1.0](https://github.com/kontent-ai/webhook-helper-js/compare/v2.0.1...v2.1.0) (2023-08-01)
+
+
+### Features
+
+* updates deps, migrates to eslint, ignores dist ([ffdd3c6](https://github.com/kontent-ai/webhook-helper-js/commit/ffdd3c67b9d242a7b149e70dc0c21253f4a71af4))
+
 ### [2.0.1](https://github.com/kontent-ai/webhook-helper-js/compare/v2.0.0...v2.0.1) (2022-07-21)
 
 
