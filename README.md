@@ -34,6 +34,12 @@ If you already parsed the payload into an object, you should be able to transfor
 const payload: string = JSON.stringify(jsonPayload,null,2);
 ```
 
+The stringify method can sometimes add Windows line breaks which cause the resulting payload to mismatch the webhook body. In this instance there is an included method you can use:
+
+```typescript
+payload = signatureHelper.replaceLinebreaks(payload);
+```
+
 ### Generate hash
 
 ```typescript
