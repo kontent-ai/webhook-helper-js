@@ -32,7 +32,9 @@
         "build:all": "npm run build:es6 && npm run build:esnext && npm run build:commonjs",
         "test:all": "npm run build:all && npm run test:node",
         "lint:check": "npx eslint lib",
-        "test:node": "echo \"There are no tests yet\""
+        "test:node": "echo \"There are no tests yet\"",
+        "fmt": "dprint fmt",
+        "fmt:check": "dprint check"
     },
     "keywords": [
         "Kontent.ai",
@@ -40,18 +42,18 @@
         "Kontent Webhook"
     ],
     "license": "MIT",
-    "dependencies": {},
     "devDependencies": {
-        "ts-loader": "9.4.4",
         "@types/chai": "4.3.5",
         "@types/mocha": "10.0.1",
         "@types/node": "20.4.5",
-        "chai": "4.3.7",
-        "mocha": "10.2.0",
-        "standard-version": "9.5.0",
         "@typescript-eslint/eslint-plugin": "6.2.1",
         "@typescript-eslint/parser": "6.2.1",
+        "chai": "4.3.7",
+        "dprint": "^0.45.0",
         "eslint": "8.46.0",
+        "mocha": "10.2.0",
+        "standard-version": "9.5.0",
+        "ts-loader": "9.4.4",
         "typescript": "5.1.6",
         "webpack": "5.88.2",
         "webpack-bundle-analyzer": "4.9.0",
