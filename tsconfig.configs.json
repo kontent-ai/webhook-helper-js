@@ -22,5 +22,5 @@
   
       "skipLibCheck": true
     },
-    "include": ["./jestUnitTests.config.ts", "./jestIntegrationTests.config.ts"]
+    "include": ["./jest.config.ts"]
   }
