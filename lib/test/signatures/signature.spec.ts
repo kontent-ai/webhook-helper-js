@@ -1,5 +1,6 @@
-import { IWebhookDeliveryResponse, WebhookResponse, signatureHelper } from "../..";
 import { describe, expect, it } from "@jest/globals";
+
+import { IWebhookDeliveryResponse, signatureHelper, WebhookResponse } from "../..";
 
 describe("# Signatures", () => {
   const secret = "BHPyfqwSy1iJjcscOB+GSkDf9THrBlfcKkwtADJdbP4=";

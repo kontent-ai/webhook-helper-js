@@ -1,0 +1,16 @@
+{
+    "extends": [
+      "@kontent-ai"
+    ],
+    "rules": {
+      "import/export": "off"
+    },
+    "overrides": [
+      {
+        "files": ["lib/**/*.ts"]
+      }
+    ],
+    "parserOptions": {
+      "project": ["tsconfig.json"]
+    }
+  }
