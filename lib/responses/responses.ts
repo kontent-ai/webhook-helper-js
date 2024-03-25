@@ -1,5 +1,5 @@
-import { IWebhookDeliveryData, IWebhookResponse, IWebhookWorkflowData } from '../models';
+import { WebhookNotification } from "lib/models"
 
-export interface IWebhookDeliveryResponse extends IWebhookResponse<IWebhookDeliveryData> {}
-
-export interface IWebhookWorkflowResponse extends IWebhookResponse<IWebhookWorkflowData> {}
+export type WebhookResponse = {
+    notifications: WebhookNotification[];
+}
