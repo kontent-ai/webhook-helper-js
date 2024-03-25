@@ -1,2 +1,2 @@
-export * from "./legacy/webhook-models.class.ts.js";
+export * from "./legacy/webhook-models.class.js";
 export * from "./webhook-models.js";
