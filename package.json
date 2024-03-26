@@ -1,6 +1,6 @@
 {
     "name": "@kontent-ai/webhook-helper",
-    "version": "2.1.0",
+    "version": "3.0.0-beta.0",
     "description": "This utility helps with webhook notifications from Kontent.ai",
     "private": false,
     "repository": {
@@ -19,7 +19,7 @@
     "scripts": {
         "release": "npm run lint && standard-version",
         "release:major": "npm run lint && standard-version --release-as major",
-        "release:major:beta": "npm run lint && standard-version --prerelease --release-as major",
+        "release:major:beta": "npm run lint && standard-version --prerelease beta --release-as major",
         "release:beta": "standard-version --prerelease",
         "tsc-local": "./node_modules/.bin/tsc",
         "test": "jest --config=jest.config.ts",
