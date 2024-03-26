@@ -1,1 +1,1 @@
-export * from './signature-helper.class';
+export * from "./signature-helper.class";

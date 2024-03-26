@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-beta.0](https://github.com/kontent-ai/webhook-helper-js/compare/v2.1.0...v3.0.0-beta.0) (2024-03-26)
+
 ## [2.1.0](https://github.com/kontent-ai/webhook-helper-js/compare/v2.0.1...v2.1.0) (2023-08-01)
 
 

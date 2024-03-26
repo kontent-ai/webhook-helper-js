@@ -5,14 +5,14 @@
 
 This package aims to help you with Webhooks received from Kontent.ai projects. Currently, it: 
 
-* Helps with [signature verification](https://kontent.ai/learn/tutorials/develop-apps/integrate/webhooks#a-validate-received-notifications) 
+* Helps with [signature verification](https://kontent.ai/learn/docs/webhooks/webhooks/javascript#a-validate-received-notifications) 
 * Provides types for webhook response (only for `Typescript`)
 
 ## Installation
 
 Install package:
 
-`npm i @kontent-ai/webhook-helper`
+`npm i --save-dev @kontent-ai/webhook-helper`
 
 ### Signature verification
 
@@ -24,7 +24,7 @@ import { signatureHelper } from '@kontent-ai/webhook-helper';
 const isValid = signatureHelper.isValidSignatureFromString(
     payload, // the original string payload 
     secret, // secret can be obtained from Webhook definition in Kontent.ai project
-    signature // can be obtained from 'x-kc-signature' header present in webhook request);
+    signature // can be obtained from 'x-kc-signature' header present in webhook request;
 ```
 
 Keep in mind that the contents of **payload** have to be exactly the same (including whitespaces) as the original webhook body, otherwise, the validation will fail. 
@@ -52,77 +52,34 @@ const hash = signatureHelper.getHashFromString(payload, secret);
 
 If you are using `Typescript` you may use provided interfaces to access webhook properties in a strongly typed manner. 
 
-#### Delivery webhook response
+#### Webhook response
 
 ```typescript
-import { IWebhookDeliveryResponse } from '@kontent-ai/webhook-helper';
+import { WebhookResponse } from '@kontent-ai/webhook-helper';
 
-const rawResponse = {
-    "data": {
-        "items": [
-            {
-                "id": "e5d575fe-9608-4523-a07d-e32d780bf92a",
-                "codename": "this_article_changed",
-                "collection": "default",
-                "language": "en-US",
-                "type": "article"
-            }
-        ],
-        "taxonomies": [
-            {
-                "id": "4794dde6-f700-4a5d-b0dc-9ae16dcfc73d",
-                "codename": "personas"
-            }
-        ]
-    },
-    "message": {
-        "id": "e1b372a2-1186-4929-b370-904c59f060b7",
-        "project_id": "bf32e7ab-85c3-0073-47b9-90838a8462de",
-        "type": "taxonomy",
-        "operation": "upsert",
-        "api_name": "delivery_production",
-        "created_timestamp": "2019-07-18T10:52:33.1059256Z",
-        "webhook_url": "https://myapp.com/webhook-endpoint"
-    }
+const rawResponse: WebhookResponse = {
+    notifications: [
+        {
+        data: {
+            system: {
+            id: "aa7f127f-1920-4454-a89a-0609aba8ea6f",
+            name: "This changes everything!",
+            codename: "this_changes_everything_",
+            collection: "marketing",
+            workflow: "default",
+            workflow_step: "published",
+            language: "default",
+            type: "product_update",
+            last_modified: "2024-03-25T07:55:57.0563735Z",
+            },
+        },
+        message: {
+            environment_id: "0f5b6cb2-ea82-014e-ac74-f71e7e8b6aee",
+            object_type: "content_item",
+            action: "published",
+            delivery_slot: "published",
+        },
+        },
+    ],
 };
-
-const response = rawResponse as IWebhookDeliveryResponse;
-```
-
-#### Workflow webhook response
-
-```typescript
-import { IWebhookWorkflowResponse } from '@kontent-ai/webhook-helper';
-
-const rawResponse = {
-    "data": {
-        "items": [
-            {
-                "item": {
-                    "id": "65f05e0f-40c3-436b-a641-e2d4cae16e46"
-                },
-                "language": {
-                    "id": "00000000-0000-0000-0000-000000000000"
-                },
-                "transition_from": {
-                    "id": "eee6db3b-545a-4785-8e86-e3772c8756f9"
-                },
-                "transition_to": {
-                    "id": "03b6ebd3-2f49-4621-92fd-4977b33681d1"
-                }
-            }
-        ]
-    },
-    "message": {
-        "id": "e1b372a2-1186-4929-b370-904c59f060b7",
-        "project_id": "bf32e7ab-85c3-0073-47b9-90838a8462de",
-        "type": "taxonomy",
-        "operation": "upsert",
-        "api_name": "delivery_production",
-        "created_timestamp": "2019-07-18T10:52:33.1059256Z",
-        "webhook_url": "https://myapp.com/webhook-endpoint"
-    }
-};
-
-const response = rawResponse as IWebhookWorkflowResponse;
 ```
