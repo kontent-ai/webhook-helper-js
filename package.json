@@ -24,7 +24,6 @@
         "tsc-local": "./node_modules/.bin/tsc",
         "test": "jest --config=jest.config.ts",
         "ts-node-local": "./node_modules/.bin/ts-node",
-        "prepublishOnly": "npm run lint:check && npm run test",
         "publish:beta": "npm publish --tag=next",
         "build:es6": "tsc -m es6 --outDir dist/es6 --p tsconfig.prod.json",
         "build:esnext": "tsc -m esnext --outDir dist/esnext --p tsconfig.prod.json",
