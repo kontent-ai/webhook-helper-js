@@ -1,4 +1,4 @@
-import { WebhookNotification } from "lib/models";
+import { WebhookNotification } from "../models";
 
 export type WebhookResponse = {
   notifications: WebhookNotification[];
