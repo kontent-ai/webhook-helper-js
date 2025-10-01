@@ -23,7 +23,7 @@ export type WebhookItemNotification = {
   data: {
     system: WebhookItemObjectData;
   };
-  message: ContentItemPreviewMessage | ContentItemPublishedMessage;
+  message: ContentItemPreviewMessage | ContentItemWorkflowChangedPreviewMessage | ContentItemPublishedMessage;
 };
 
 export type WebhookObjectNotification = {
@@ -43,11 +43,25 @@ export type AssetMesage = WebhookMessageCommon & {
   action: AssetEvents;
 };
 
-export type ContentItemPreviewMessage = WebhookMessageCommon & {
-  object_type: "content_item";
-  action: ContentItemPreviewEvents;
-  delivery_slot: WebhookPreviewDeliverySlot;
-};
+export type ContentItemPreviewMessage =
+  & WebhookMessageCommon
+  & {
+    object_type: "content_item";
+    delivery_slot: WebhookPreviewDeliverySlot;
+    action: Exclude<ContentItemPreviewEvents, "workflow_step_changed">;
+  };
+
+export type ContentItemWorkflowChangedPreviewMessage =
+  & WebhookMessageCommon
+  & {
+    object_type: "content_item";
+    delivery_slot: WebhookPreviewDeliverySlot;
+    action: Extract<ContentItemPreviewEvents, "workflow_step_changed">;
+    action_context: {
+      previous_workflow: string;
+      previous_workflow_step: string;
+    };
+  };
 
 export type ContentItemPublishedMessage = WebhookMessageCommon & {
   object_type: "content_item";
