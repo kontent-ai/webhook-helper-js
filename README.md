@@ -24,14 +24,14 @@ import { signatureHelper } from '@kontent-ai/webhook-helper';
 const isValid = signatureHelper.isValidSignatureFromString(
     payload, // the original string payload 
     secret, // secret can be obtained from Webhook definition in Kontent.ai project
-    signature // can be obtained from 'x-kc-signature' header present in webhook request;
+    signature // can be obtained from 'x-kontent-ai-signature' header present in webhook request;
 ```
 
 Keep in mind that the contents of **payload** have to be exactly the same (including whitespaces) as the original webhook body, otherwise, the validation will fail. 
 If you already parsed the payload into an object, you should be able to transform it back to the way it originaly was with these settings:
 
 ```typescript
-const payload: string = JSON.stringify(jsonPayload,null,2);
+const payload: string = JSON.stringify(jsonPayload, null, 2);
 ```
 
 The stringify method can sometimes add Windows line breaks which cause the resulting payload to mismatch the webhook body. In this instance there is an included method you can use:
