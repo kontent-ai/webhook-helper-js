@@ -6,9 +6,6 @@
   },
   "linter": {
     "rules": {
-      "performance": {
-        "noBarrelFile": "off"
-      },
       "correctness": {
         "useImportExtensions": {
           "level": "error",
@@ -18,5 +15,17 @@
         }
       }
     }
-  }
+  },
+  "overrides": [
+    {
+      "includes": ["lib/index.ts"],
+      "linter": {
+        "rules": {
+          "performance": {
+            "noBarrelFile": "off"
+          }
+        }
+      }
+    }
+  ]
 }
