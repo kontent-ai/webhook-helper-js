@@ -23,5 +23,8 @@ export type {
 
 export type { WebhookResponse } from "./responses/responses.js";
 
-export type { ISignatureHelper } from "./signatures/signature-helper.class.js";
-export { SignatureHelper, signatureHelper } from "./signatures/signature-helper.class.js";
+export {
+  getHashFromString,
+  isValidSignatureFromString,
+  replaceLinebreaks,
+} from "./signatures/signature-helper.js";

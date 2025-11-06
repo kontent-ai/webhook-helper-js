@@ -1,6 +1,11 @@
 import { describe, expect, it } from "vitest";
 
-import { signatureHelper, WebhookResponse } from "../..";
+import {
+  getHashFromString,
+  isValidSignatureFromString,
+  replaceLinebreaks,
+  WebhookResponse,
+} from "../..";
 
 describe("# Signatures", () => {
   const secret = "BHPyfqwSy1iJjcscOB+GSkDf9THrBlfcKkwtADJdbP4=";
@@ -33,7 +38,7 @@ describe("# Signatures", () => {
 
   it("Generated hash should match signature", () => {
     const payloadString = JSON.stringify(payload, null, 2);
-    const generatedHash = signatureHelper.getHashFromString(signatureHelper.replaceLinebreaks(payloadString), secret);
+    const generatedHash = getHashFromString(replaceLinebreaks(payloadString), secret);
 
     expect(generatedHash).toEqual(signature);
   });
@@ -41,8 +46,8 @@ describe("# Signatures", () => {
   it("Signature should be valid", () => {
     const payloadString = JSON.stringify(payload, null, 2);
 
-    const isValid = signatureHelper.isValidSignatureFromString(
-      signatureHelper.replaceLinebreaks(payloadString),
+    const isValid = isValidSignatureFromString(
+      replaceLinebreaks(payloadString),
       secret,
       signature,
     );
@@ -59,8 +64,8 @@ describe("# Signatures", () => {
     };
     const payloadString = JSON.stringify(wrongInput, null, 2);
 
-    const isValid = signatureHelper.isValidSignatureFromString(
-      signatureHelper.replaceLinebreaks(payloadString),
+    const isValid = isValidSignatureFromString(
+      replaceLinebreaks(payloadString),
       secret,
       signature,
     );
