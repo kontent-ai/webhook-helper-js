@@ -23,7 +23,10 @@ export type WebhookItemNotification = {
   data: {
     system: WebhookItemObjectData;
   };
-  message: ContentItemPreviewMessage | ContentItemWorkflowChangedPreviewMessage | ContentItemPublishedMessage;
+  message:
+    | ContentItemPreviewMessage
+    | ContentItemWorkflowChangedPreviewMessage
+    | ContentItemPublishedMessage;
 };
 
 export type WebhookObjectNotification = {
@@ -43,25 +46,21 @@ export type AssetMesage = WebhookMessageCommon & {
   action: AssetEvents;
 };
 
-export type ContentItemPreviewMessage =
-  & WebhookMessageCommon
-  & {
-    object_type: "content_item";
-    delivery_slot: WebhookPreviewDeliverySlot;
-    action: Exclude<ContentItemPreviewEvents, "workflow_step_changed">;
-  };
+export type ContentItemPreviewMessage = WebhookMessageCommon & {
+  object_type: "content_item";
+  delivery_slot: WebhookPreviewDeliverySlot;
+  action: Exclude<ContentItemPreviewEvents, "workflow_step_changed">;
+};
 
-export type ContentItemWorkflowChangedPreviewMessage =
-  & WebhookMessageCommon
-  & {
-    object_type: "content_item";
-    delivery_slot: WebhookPreviewDeliverySlot;
-    action: Extract<ContentItemPreviewEvents, "workflow_step_changed">;
-    action_context: {
-      previous_workflow: string;
-      previous_workflow_step: string;
-    };
+export type ContentItemWorkflowChangedPreviewMessage = WebhookMessageCommon & {
+  object_type: "content_item";
+  delivery_slot: WebhookPreviewDeliverySlot;
+  action: Extract<ContentItemPreviewEvents, "workflow_step_changed">;
+  action_context: {
+    previous_workflow: string;
+    previous_workflow_step: string;
   };
+};
 
 export type ContentItemPublishedMessage = WebhookMessageCommon & {
   object_type: "content_item";

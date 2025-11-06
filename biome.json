@@ -1,0 +1,22 @@
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "extends": ["@kontent-ai/biome-config/base"],
+  "files": {
+    "includes": ["lib/**/*.ts", "!**/*.spec.ts", "!dist", "!coverage", "!node_modules"]
+  },
+  "linter": {
+    "rules": {
+      "performance": {
+        "noBarrelFile": "off"
+      },
+      "correctness": {
+        "useImportExtensions": {
+          "level": "error",
+          "options": {
+            "forceJsExtensions": true
+          }
+        }
+      }
+    }
+  }
+}
