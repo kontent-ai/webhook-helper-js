@@ -1,4 +1,4 @@
-import { createHmac } from "crypto";
+import { createHmac } from "node:crypto";
 
 export interface ISignatureHelper {
   isValidSignatureFromString(jsonPayload: string, secret: string, signature: string): boolean;
@@ -12,9 +12,7 @@ export class SignatureHelper implements ISignatureHelper {
   }
 
   getHashFromString(jsonPayload: string, secret: string): string {
-    return createHmac("sha256", secret)
-      .update(jsonPayload, "utf8")
-      .digest("base64");
+    return createHmac("sha256", secret).update(jsonPayload, "utf8").digest("base64");
   }
 
   replaceLinebreaks(data: string): string {
