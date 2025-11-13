@@ -1,6 +1,5 @@
 import { z } from "zod";
 
-// Event type enums
 export const webhookDeliverySlotSchema = z.enum(["published", "preview"]);
 
 export const assetEventsSchema = z.enum(["created", "deleted", "metadata_changed"]);
@@ -32,7 +31,6 @@ export const taxonomyEventsSchema = z.enum([
   "terms_moved",
 ]);
 
-// Base data schemas
 export const webhookObjectDataSchema = z.object({
   id: z.string(),
   name: z.string(),
@@ -48,13 +46,11 @@ export const webhookItemObjectDataSchema = webhookObjectDataSchema.extend({
   type: z.string(),
 });
 
-// Common message fields
 const webhookMessageCommonSchema = z.object({
   environment_id: z.string(),
   delivery_slot: webhookDeliverySlotSchema,
 });
 
-// Message schemas
 export const assetMessageSchema = webhookMessageCommonSchema.extend({
   object_type: z.literal("asset"),
   action: assetEventsSchema,
@@ -107,7 +103,6 @@ export const webhookMessageSchema = z.discriminatedUnion("object_type", [
   taxonomyMessageSchema,
 ]);
 
-// Notification schemas
 export const webhookItemNotificationSchema = z.object({
   data: z.object({
     system: webhookItemObjectDataSchema,
@@ -131,18 +126,15 @@ export const webhookObjectNotificationSchema = z.object({
   ]),
 });
 
-// Top-level discriminated union for notifications
 export const webhookNotificationSchema = z.union([
   webhookItemNotificationSchema,
   webhookObjectNotificationSchema,
 ]);
 
-// Main webhook response schema
 export const webhookResponseSchema = z.object({
   notifications: z.array(webhookNotificationSchema),
 });
 
-// Export inferred TypeScript types
 export type WebhookDeliverySlot = z.infer<typeof webhookDeliverySlotSchema>;
 export type AssetEvents = z.infer<typeof assetEventsSchema>;
 export type ContentItemPreviewEvents = z.infer<typeof contentItemPreviewEventsSchema>;

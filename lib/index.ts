@@ -1,8 +1,5 @@
-// Public API - Types
+export { parseWebhookResponse } from "./models/parse-webhook.js";
 
-// Webhook validation functions
-export { parseWebhookResponse, parseWebhookResponseSafe } from "./models/parse-webhook.js";
-// Type guards for discriminated unions
 export {
   isAssetMessage,
   isContentItemMessage,
@@ -15,6 +12,7 @@ export {
   isWebhookItemNotification,
   isWebhookObjectNotification,
 } from "./models/type-guards.js";
+
 export type {
   AssetEvents,
   AssetMessage,
@@ -37,32 +35,8 @@ export type {
   WebhookObjectNotification,
   WebhookResponse,
 } from "./models/webhook-schemas.js";
-// Zod schemas for advanced usage
+export { SIGNATURE_HEADER } from "./signatures/constants.js";
 export {
-  assetEventsSchema,
-  assetMessageSchema,
-  contentItemPreviewEventsSchema,
-  contentItemPreviewMessageSchema,
-  contentItemPublishedEventsSchema,
-  contentItemPublishedMessageSchema,
-  contentItemWorkflowChangedPreviewMessageSchema,
-  contentTypeEventsSchema,
-  contentTypeMessageSchema,
-  languageEventsSchema,
-  languageMessageSchema,
-  taxonomyEventsSchema,
-  taxonomyMessageSchema,
-  webhookDeliverySlotSchema,
-  webhookItemNotificationSchema,
-  webhookItemObjectDataSchema,
-  webhookNotificationSchema,
-  webhookObjectDataSchema,
-  webhookObjectNotificationSchema,
-  webhookResponseSchema,
-} from "./models/webhook-schemas.js";
-// Signature validation functions
-export {
-  getHashFromString,
-  isValidSignatureFromString,
+  parseSignedWebhookResponse,
   replaceLinebreaks,
 } from "./signatures/signature-helper.js";
