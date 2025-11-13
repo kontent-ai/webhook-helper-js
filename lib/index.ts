@@ -1,18 +1,5 @@
 export { parseWebhookResponse } from "./models/parse-webhook.js";
 
-export {
-  isAssetMessage,
-  isContentItemMessage,
-  isContentItemPreviewMessage,
-  isContentItemPublishedMessage,
-  isContentItemWorkflowChangedPreviewMessage,
-  isContentTypeMessage,
-  isLanguageMessage,
-  isTaxonomyMessage,
-  isWebhookItemNotification,
-  isWebhookObjectNotification,
-} from "./models/type-guards.js";
-
 export type {
   AssetEvents,
   AssetMessage,
