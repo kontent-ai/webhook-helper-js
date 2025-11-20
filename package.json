@@ -9,27 +9,17 @@
   },
   "author": "richard sustek",
   "engines": {
-    "node": ">= 16"
+    "node": ">= 20"
   },
-  "main": "./dist/cjs/index.js",
-  "module": "./dist/es6/index.js",
-  "es2015": "./dist/es6/index.js",
-  "types": "./dist/cjs/index.d.ts",
+  "main": "./dist/index.js",
+  "type": "module",
+  "types": "./dist/index.d.ts",
   "directories": {},
   "scripts": {
-    "release": "npm run lint && standard-version",
-    "release:major": "npm run lint && standard-version --release-as major",
-    "release:major:beta": "npm run lint && standard-version --prerelease beta --release-as major",
-    "release:beta": "standard-version --prerelease",
-    "tsc-local": "./node_modules/.bin/tsc",
     "test": "vitest run",
     "test:typecheck": "tsc --noEmit -p tsconfig.test.json",
-    "ts-node-local": "./node_modules/.bin/ts-node",
-    "publish:beta": "npm publish --tag=next",
-    "build:es6": "tsc -m es6 --outDir dist/es6 --p tsconfig.prod.json",
-    "build:esnext": "tsc -m esnext --outDir dist/esnext --p tsconfig.prod.json",
-    "build:commonjs": "tsc -m commonjs --outDir dist/cjs --p tsconfig.prod.json",
-    "build:all": "npm run build:es6 && npm run build:esnext && npm run build:commonjs",
+    "build": "tsc -m esnext --outDir dist --p tsconfig.prod.json",
+    "prepare": "npm run build",
     "lint": "eslint .",
     "biome": "biome format --write lib",
     "biome:check": "biome check lib"
@@ -47,15 +37,8 @@
     "@typescript-eslint/eslint-plugin": "^8.46.3",
     "@typescript-eslint/parser": "^8.46.3",
     "eslint": "^9.39.1",
-    "standard-version": "9.5.0",
-    "ts-jest": "^29.1.2",
-    "ts-loader": "9.4.4",
-    "ts-node": "^10.9.2",
     "typescript": "^5.4.3",
-    "vitest": "^4.0.7",
-    "webpack": "5.94.0",
-    "webpack-bundle-analyzer": "4.9.0",
-    "webpack-cli": "5.1.4"
+    "vitest": "^4.0.7"
   },
   "dependencies": {
     "zod": "^4.1.12",
