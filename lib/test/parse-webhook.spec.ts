@@ -1,14 +1,11 @@
 import { describe, expect, it } from "vitest";
-import {
-	parseWebhookResponse,
-	parseWebhookResponseSafe,
-	type WebhookResponse,
-} from "..";
+import { parseWebhookResponse, type WebhookResponse } from "..";
 
-describe("# Webhook Validation", () => {
+describe("Webhook Validation", () => {
 	const validWebhookPayload = {
 		notifications: [
 			{
+				object_type: "content_item",
 				data: {
 					system: {
 						id: "aa7f127f-1920-4454-a89a-0609aba8ea6f",
@@ -35,6 +32,7 @@ describe("# Webhook Validation", () => {
 	const validPreviewWebhookPayload = {
 		notifications: [
 			{
+				object_type: "content_item",
 				data: {
 					system: {
 						id: "aa7f127f-1920-4454-a89a-0609aba8ea6f",
@@ -61,6 +59,7 @@ describe("# Webhook Validation", () => {
 	const validWorkflowChangedPayload = {
 		notifications: [
 			{
+				object_type: "content_item",
 				data: {
 					system: {
 						id: "aa7f127f-1920-4454-a89a-0609aba8ea6f",
@@ -91,6 +90,7 @@ describe("# Webhook Validation", () => {
 	const validAssetWebhookPayload = {
 		notifications: [
 			{
+				object_type: "asset",
 				data: {
 					system: {
 						id: "bb8f127f-1920-4454-a89a-0609aba8ea6f",
@@ -113,53 +113,74 @@ describe("# Webhook Validation", () => {
 		it("should parse valid published content item webhook", () => {
 			const result = parseWebhookResponse(validWebhookPayload);
 
-			expect(result).toEqual(validWebhookPayload);
-			expect(result.notifications[0].message.object_type).toBe("content_item");
-			expect(result.notifications[0].message.action).toBe("published");
+			expect(result.success).toBe(true);
+			if (result.success) {
+				expect(result.data).toEqual(validWebhookPayload);
+				const notification = result.data.notifications[0];
+				expect(notification.object_type).toBe("content_item");
+				if (notification.object_type === "content_item") {
+					expect(notification.message.action).toBe("published");
+				}
+			}
 		});
 
 		it("should parse valid preview content item webhook", () => {
 			const result = parseWebhookResponse(validPreviewWebhookPayload);
 
-			expect(result).toEqual(validPreviewWebhookPayload);
-			expect(result.notifications[0].message.object_type).toBe("content_item");
-			expect(result.notifications[0].message.delivery_slot).toBe("preview");
+			expect(result.success).toBe(true);
+			if (result.success) {
+				expect(result.data).toEqual(validPreviewWebhookPayload);
+				const notification = result.data.notifications[0];
+				expect(notification.object_type).toBe("content_item");
+				if (notification.object_type === "content_item") {
+					expect(notification.message.delivery_slot).toBe("preview");
+				}
+			}
 		});
 
 		it("should parse valid workflow changed webhook", () => {
 			const result = parseWebhookResponse(validWorkflowChangedPayload);
 
-			expect(result).toEqual(validWorkflowChangedPayload);
-			expect(result.notifications[0].message.action).toBe("workflow_step_changed");
-			if (result.notifications[0].message.action === "workflow_step_changed") {
-				expect(result.notifications[0].message.action_context.previous_workflow_step).toBe(
-					"draft",
-				);
+			expect(result.success).toBe(true);
+			if (result.success) {
+				expect(result.data).toEqual(validWorkflowChangedPayload);
+				const notification = result.data.notifications[0];
+				expect(notification.object_type).toBe("content_item");
+				if (notification.object_type === "content_item") {
+					expect(notification.message.action).toBe("workflow_step_changed");
+					if (notification.message.action === "workflow_step_changed") {
+						expect(notification.message.action_context.previous_workflow_step).toBe("draft");
+					}
+				}
 			}
 		});
 
 		it("should parse valid asset webhook", () => {
 			const result = parseWebhookResponse(validAssetWebhookPayload);
 
-			expect(result).toEqual(validAssetWebhookPayload);
-			expect(result.notifications[0].message.object_type).toBe("asset");
-			expect(result.notifications[0].message.action).toBe("created");
+			expect(result.success).toBe(true);
+			if (result.success) {
+				expect(result.data).toEqual(validAssetWebhookPayload);
+				const notification = result.data.notifications[0];
+				expect(notification.object_type).toBe("asset");
+			}
 		});
 
-		it("should throw error for invalid webhook (missing notifications)", () => {
+		it("should return error for invalid webhook (missing notifications)", () => {
 			const invalidPayload = { invalid: "data" };
+			const result = parseWebhookResponse(invalidPayload);
 
-			expect(() => parseWebhookResponse(invalidPayload)).toThrow();
+			expect(result.success).toBe(false);
 		});
 
-		it("should throw error for webhook with empty notifications array", () => {
+		it("should return success for webhook with empty notifications array", () => {
 			const invalidPayload = { notifications: [] };
+			const result = parseWebhookResponse(invalidPayload);
 
-			// Empty array is actually valid according to the schema
-			expect(() => parseWebhookResponse(invalidPayload)).not.toThrow();
+			expect(result.success).toBe(true);
 		});
 
-		it("should throw error for notification missing data", () => {
+		it("should parse notification missing data as unknown", () => {
 			const invalidPayload = {
 				notifications: [
 					{
@@ -173,10 +194,19 @@ describe("# Webhook Validation", () => {
 				],
 			};
 
-			expect(() => parseWebhookResponse(invalidPayload)).toThrow();
+			const result = parseWebhookResponse(invalidPayload);
+
+			expect(result.success).toBe(true);
+			if (result.success) {
+				const notification = result.data.notifications[0];
+				expect(notification.object_type).toBe("unknown");
+				if (notification.object_type === "unknown") {
+					expect(notification.original_notification).toEqual(invalidPayload.notifications[0]);
+				}
+			}
 		});
 
-		it("should throw error for notification missing system data", () => {
+		it("should parse notification missing system data as unknown", () => {
 			const invalidPayload = {
 				notifications: [
 					{
@@ -191,10 +221,19 @@ describe("# Webhook Validation", () => {
 				],
 			};
 
-			expect(() => parseWebhookResponse(invalidPayload)).toThrow();
+			const result = parseWebhookResponse(invalidPayload);
+
+			expect(result.success).toBe(true);
+			if (result.success) {
+				const notification = result.data.notifications[0];
+				expect(notification.object_type).toBe("unknown");
+				if (notification.object_type === "unknown") {
+					expect(notification.original_notification).toEqual(invalidPayload.notifications[0]);
+				}
+			}
 		});
 
-		it("should throw error for invalid action type", () => {
+		it("should parse notification with invalid action type as unknown", () => {
 			const invalidPayload = {
 				notifications: [
 					{
@@ -221,111 +260,35 @@ describe("# Webhook Validation", () => {
 				],
 			};
 
-			expect(() => parseWebhookResponse(invalidPayload)).toThrow();
-		});
-
-		it("should throw error for mismatched delivery_slot and action", () => {
-			const invalidPayload = {
-				notifications: [
-					{
-						data: {
-							system: {
-								id: "aa7f127f-1920-4454-a89a-0609aba8ea6f",
-								name: "Test",
-								codename: "test",
-								collection: "default",
-								workflow: "default",
-								workflow_step: "published",
-								language: "default",
-								type: "article",
-								last_modified: "2024-03-25T07:55:57.0563735Z",
-							},
-						},
-						message: {
-							environment_id: "0f5b6cb2-ea82-014e-ac74-f71e7e8b6aee",
-							object_type: "content_item",
-							action: "workflow_step_changed",
-							delivery_slot: "published", // Should be "preview" for workflow changes
-						},
-					},
-				],
-			};
-
-			expect(() => parseWebhookResponse(invalidPayload)).toThrow();
-		});
-	});
-
-	describe("parseWebhookResponseSafe", () => {
-		it("should return success for valid webhook", () => {
-			const result = parseWebhookResponseSafe(validWebhookPayload);
+			const result = parseWebhookResponse(invalidPayload);
 
 			expect(result.success).toBe(true);
 			if (result.success) {
-				expect(result.data).toEqual(validWebhookPayload);
-			}
-		});
-
-		it("should return error for invalid webhook", () => {
-			const invalidPayload = { invalid: "data" };
-			const result = parseWebhookResponseSafe(invalidPayload);
-
-			expect(result.success).toBe(false);
-			if (!result.success) {
-				expect(result.error.issues.length).toBeGreaterThan(0);
-			}
-		});
-
-		it("should provide detailed error information", () => {
-			const invalidPayload = {
-				notifications: [
-					{
-						data: {
-							system: {
-								id: "test",
-								name: "test",
-								codename: "test",
-								collection: "default",
-								workflow: "default",
-								workflow_step: "published",
-								language: "default",
-								type: "article",
-								// missing last_modified
-							},
-						},
-						message: {
-							environment_id: "test",
-							object_type: "content_item",
-							action: "published",
-							delivery_slot: "published",
-						},
-					},
-				],
-			};
-
-			const result = parseWebhookResponseSafe(invalidPayload);
-
-			expect(result.success).toBe(false);
-			if (!result.success) {
-				expect(result.error.issues.length).toBeGreaterThan(0);
-				// Check that error messages mention the missing field
-				const errorMessages = result.error.issues.map((issue: { message: string }) => issue.message);
-				expect(errorMessages.length).toBeGreaterThan(0);
+				const notification = result.data.notifications[0];
+				expect(notification.object_type).toBe("unknown");
+				if (notification.object_type === "unknown") {
+					expect(notification.original_notification).toEqual(invalidPayload.notifications[0]);
+				}
 			}
 		});
 
 		it("should handle multiple notifications", () => {
 			const multiNotificationPayload = {
-				notifications: [validWebhookPayload.notifications[0], validAssetWebhookPayload.notifications[0]],
+				notifications: [
+					validWebhookPayload.notifications[0],
+					validAssetWebhookPayload.notifications[0],
+				],
 			};
 
-			const result = parseWebhookResponseSafe(multiNotificationPayload);
+			const result = parseWebhookResponse(multiNotificationPayload);
 
 			expect(result.success).toBe(true);
 			if (result.success) {
 				expect(result.data.notifications).toHaveLength(2);
-				expect(result.data.notifications[0].message.object_type).toBe("content_item");
-				expect(result.data.notifications[1].message.object_type).toBe("asset");
+				expect(result.data.notifications[0].object_type).toBe("content_item");
+				expect(result.data.notifications[1].object_type).toBe("asset");
 			}
 		});
 	});
+
 });
