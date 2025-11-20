@@ -103,33 +103,95 @@ export const webhookMessageSchema = z.discriminatedUnion("object_type", [
   taxonomyMessageSchema,
 ]);
 
-export const webhookItemNotificationSchema = z.object({
-  data: z.object({
-    system: webhookItemObjectDataSchema,
-  }),
-  message: z.union([
-    contentItemPreviewMessageSchema,
-    contentItemWorkflowChangedPreviewMessageSchema,
-    contentItemPublishedMessageSchema,
-  ]),
-});
+const assetNotificationSchema = z
+  .object({
+    data: z.object({
+      system: webhookObjectDataSchema,
+    }),
+    message: assetMessageSchema,
+  })
+  .transform((notification) => ({
+    ...notification,
+    object_type: "asset" as const,
+  }));
 
-export const webhookObjectNotificationSchema = z.object({
-  data: z.object({
-    system: webhookObjectDataSchema,
-  }),
-  message: z.union([
-    assetMessageSchema,
-    contentTypeMessageSchema,
-    languageMessageSchema,
-    taxonomyMessageSchema,
-  ]),
-});
+const contentItemNotificationSchema = z
+  .object({
+    data: z.object({
+      system: webhookItemObjectDataSchema,
+    }),
+    message: z.union([
+      contentItemPreviewMessageSchema,
+      contentItemPublishedMessageSchema,
+      contentItemWorkflowChangedPreviewMessageSchema,
+    ]),
+  })
+  .transform((notification) => ({
+    ...notification,
+    object_type: "content_item" as const,
+  }));
 
-export const webhookNotificationSchema = z.union([
-  webhookItemNotificationSchema,
-  webhookObjectNotificationSchema,
+const contentTypeNotificationSchema = z
+  .object({
+    data: z.object({
+      system: webhookObjectDataSchema,
+    }),
+    message: contentTypeMessageSchema,
+  })
+  .transform((notification) => ({
+    ...notification,
+    object_type: "content_type" as const,
+  }));
+
+const languageNotificationSchema = z
+  .object({
+    data: z.object({
+      system: webhookObjectDataSchema,
+    }),
+    message: languageMessageSchema,
+  })
+  .transform((notification) => ({
+    ...notification,
+    object_type: "language" as const,
+  }));
+
+const taxonomyNotificationSchema = z
+  .object({
+    data: z.object({
+      system: webhookObjectDataSchema,
+    }),
+    message: taxonomyMessageSchema,
+  })
+  .transform((notification) => ({
+    ...notification,
+    object_type: "taxonomy" as const,
+  }));
+
+const knownNotificationSchema = z.union([
+  assetNotificationSchema,
+  contentItemNotificationSchema,
+  contentTypeNotificationSchema,
+  languageNotificationSchema,
+  taxonomyNotificationSchema,
 ]);
+
+export type UnknownNotification = {
+  object_type: "unknown";
+  original_notification: Record<PropertyKey, unknown>;
+};
+
+export const webhookNotificationSchema = z.unknown().transform((input) => {
+  const result = knownNotificationSchema.safeParse(input);
+
+  if (result.success) {
+    return result.data;
+  }
+
+  return {
+    object_type: "unknown" as const,
+    original_notification: input as Record<PropertyKey, unknown>,
+  };
+});
 
 export const webhookResponseSchema = z.object({
   notifications: z.array(webhookNotificationSchema),
@@ -148,9 +210,6 @@ export type WebhookItemObjectData = z.infer<typeof webhookItemObjectDataSchema>;
 
 export type AssetMessage = z.infer<typeof assetMessageSchema>;
 export type ContentItemPreviewMessage = z.infer<typeof contentItemPreviewMessageSchema>;
-
-export interface IContentItemPreviewMessage
-  extends z.infer<typeof contentItemPreviewMessageSchema> {}
 export type ContentItemWorkflowChangedPreviewMessage = z.infer<
   typeof contentItemWorkflowChangedPreviewMessageSchema
 >;
@@ -159,10 +218,11 @@ export type ContentTypeMessage = z.infer<typeof contentTypeMessageSchema>;
 export type LanguageMessage = z.infer<typeof languageMessageSchema>;
 export type TaxonomyMessage = z.infer<typeof taxonomyMessageSchema>;
 
-export type WebhookItemNotification = z.infer<typeof webhookItemNotificationSchema>;
-export type WebhookObjectNotification = z.infer<typeof webhookObjectNotificationSchema>;
+export type AssetNotification = z.infer<typeof assetNotificationSchema>;
+export type ContentItemNotification = z.infer<typeof contentItemNotificationSchema>;
+export type ContentTypeNotification = z.infer<typeof contentTypeNotificationSchema>;
+export type LanguageNotification = z.infer<typeof languageNotificationSchema>;
+export type TaxonomyNotification = z.infer<typeof taxonomyNotificationSchema>;
+
 export type WebhookNotification = z.infer<typeof webhookNotificationSchema>;
-
 export type WebhookResponse = z.infer<typeof webhookResponseSchema>;
-
-export interface B extends z.infer<typeof webhookResponseSchema> {}
