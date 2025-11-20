@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { parseWebhookResponse, type WebhookResponse } from "..";
+import { parseWebhookResponse, type WebhookResponse } from "../lib";
 
 describe("Webhook Validation", () => {
 	const validWebhookPayload = {
