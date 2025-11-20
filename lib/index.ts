@@ -28,6 +28,7 @@ export type {
 } from "./models/webhook-schemas.js";
 export { SIGNATURE_HEADER } from "./signatures/constants.js";
 export {
+  isSignatureValid,
   parseSignedWebhookResponse,
   replaceLinebreaks,
 } from "./signatures/signature-helper.js";
