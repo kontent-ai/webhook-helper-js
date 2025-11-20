@@ -12,7 +12,7 @@ export const parseSignedWebhookResponse = (
   signature: string,
 ): SafeParseResult<WebhookResponse> => {
   if (!isSignatureValid(jsonPayload, secret, signature)) {
-    return { success: false, error: new Error("Invalid signature") };
+    return { success: false, error: new Error("Webhook signature validation failed") };
   }
 
   try {
@@ -22,7 +22,7 @@ export const parseSignedWebhookResponse = (
   } catch (error) {
     return {
       success: false,
-      error: new Error(`Invalid payload ${error instanceof Error ? error.message : ""}`),
+      error: new Error(`Failed to parse webhook payload: ${error instanceof Error ? error.message : "Invalid JSON"}`),
     };
   }
 };

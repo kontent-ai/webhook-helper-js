@@ -23,6 +23,7 @@
     "release:beta": "standard-version --prerelease",
     "tsc-local": "./node_modules/.bin/tsc",
     "test": "vitest run",
+    "test:typecheck": "tsc --noEmit -p tsconfig.test.json",
     "ts-node-local": "./node_modules/.bin/ts-node",
     "publish:beta": "npm publish --tag=next",
     "build:es6": "tsc -m es6 --outDir dist/es6 --p tsconfig.prod.json",
@@ -57,6 +58,7 @@
     "webpack-cli": "5.1.4"
   },
   "dependencies": {
-    "zod": "^4.1.12"
+    "zod": "^4.1.12",
+    "zod-validation-error": "^5.0.0"
   }
 }
