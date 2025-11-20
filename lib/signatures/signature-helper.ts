@@ -1,12 +1,12 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
 import type { WebhookResponse } from "lib/models/webhook-schemas";
-import { parseWebhookResponse, type SafeParseResult } from "../models/parse-webhook.js";
+import { type ParseResult, parseWebhookResponse } from "../models/parse-webhook.js";
 
 export const parseSignedWebhookResponse = (
   jsonPayload: string,
   secret: string,
   signature: string,
-): SafeParseResult<WebhookResponse> => {
+): ParseResult<WebhookResponse> => {
   if (!isSignatureValid(jsonPayload, secret, signature)) {
     return { success: false, error: new Error("Webhook signature validation failed") };
   }

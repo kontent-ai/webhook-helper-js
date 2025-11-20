@@ -20,12 +20,12 @@ Install package:
 Create a reusable function to parse and validate webhook requests:
 
 ```typescript
-import { parseSignedWebhookResponse, SIGNATURE_HEADER, SafeParseResult, WebhookResponse } from '@kontent-ai/webhook-helper';
+import { parseSignedWebhookResponse, SIGNATURE_HEADER, ParseResult, WebhookResponse } from '@kontent-ai/webhook-helper';
 
 const parseWebhookRequest = async (
   request: Request,
   secret: string
-): Promise<SafeParseResult<WebhookResponse>> => {
+): Promise<ParseResult<WebhookResponse>> => {
   const signature = request.headers.get(SIGNATURE_HEADER);
   const body = await request.text();
 
