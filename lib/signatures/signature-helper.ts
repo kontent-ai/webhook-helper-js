@@ -1,11 +1,7 @@
-import { createHmac } from "node:crypto";
+import { createHmac, timingSafeEqual } from "node:crypto";
 import type { WebhookResponse } from "lib/models/webhook-schemas";
 import { parseWebhookResponse, type SafeParseResult } from "../models/parse-webhook.js";
 
-/**
- * Parses and validates a signed webhook response by verifying its HMAC-SHA256 signature.
- * Returns a safe parse result containing either the validated webhook data or an error.
- */
 export const parseSignedWebhookResponse = (
   jsonPayload: string,
   secret: string,
@@ -22,13 +18,30 @@ export const parseSignedWebhookResponse = (
   } catch (error) {
     return {
       success: false,
-      error: new Error(`Failed to parse webhook payload: ${error instanceof Error ? error.message : "Invalid JSON"}`),
+      error: new Error(
+        `Failed to parse webhook payload: ${error instanceof Error ? error.message : "Invalid JSON"}`,
+      ),
     };
   }
 };
 
-const isSignatureValid = (jsonPayload: string, secret: string, signature: string): boolean =>
-  getHashFromString(jsonPayload, secret) === signature;
+export const isSignatureValid = (
+  jsonPayload: string,
+  secret: string,
+  signature: string,
+): boolean => {
+  const expectedSignature = getHashFromString(jsonPayload, secret);
+
+  if (expectedSignature.length !== signature.length) {
+    return false;
+  }
+
+  try {
+    return timingSafeEqual(Buffer.from(expectedSignature, "utf8"), Buffer.from(signature, "utf8"));
+  } catch {
+    return false;
+  }
+};
 
 const getHashFromString = (jsonPayload: string, secret: string): string =>
   createHmac("sha256", secret).update(jsonPayload, "utf8").digest("base64");
