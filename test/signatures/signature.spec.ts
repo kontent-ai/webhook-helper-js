@@ -5,7 +5,7 @@ import {
 	parseSignedWebhookResponse,
 	replaceLinebreaks,
 	type WebhookResponse,
-} from "../..";
+} from "../../lib";
 
 const getHashFromString = (jsonPayload: string, secret: string): string =>
 	createHmac("sha256", secret).update(jsonPayload, "utf8").digest("base64");

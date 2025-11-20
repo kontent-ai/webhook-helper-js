@@ -10,7 +10,7 @@ import type {
   TaxonomyNotification,
   UnknownNotification,
   WebhookNotification,
-} from "../index.js";
+} from "../lib/index.js";
 
 describe("Type Safety Tests", () => {
   it("should allow iterating notifications with type narrowing", () => {
