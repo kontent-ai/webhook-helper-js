@@ -1,9 +1,9 @@
 import { fromZodError } from "zod-validation-error";
 import { type WebhookResponse, webhookResponseSchema } from "./webhook-schemas.js";
 
-export type SafeParseResult<T> = { success: true; data: T } | { success: false; error: Error };
+export type ParseResult<T> = { success: true; data: T } | { success: false; error: Error };
 
-export const parseWebhookResponse = (data: unknown): SafeParseResult<WebhookResponse> => {
+export const parseWebhookResponse = (data: unknown): ParseResult<WebhookResponse> => {
   const result = webhookResponseSchema.safeParse(data);
 
   if (!result.success) {
