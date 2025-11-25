@@ -13,7 +13,12 @@ This package aims to help you with Webhooks received from Kontent.ai projects. I
 
 Install package:
 
-`npm i --save @kontent-ai/webhook-helper`
+```bash
+npm install @kontent-ai/webhook-helper
+
+pnpm add @kontent-ai/webhook-helper
+```
+
 
 ## Quick Start
 

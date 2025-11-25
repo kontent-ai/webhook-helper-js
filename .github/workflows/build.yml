@@ -10,12 +10,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v4
       - name: Use Node.js from .nvmrc file
         uses: actions/setup-node@v3
         with:
           node-version-file: ".nvmrc"
-      - run: npm ci
-      - run: npm run biome:check
-      - run: npm run lint
-      - run: npm run test:typecheck && npm run test
-      - run: npm run build
+          cache: "pnpm"
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm biome:check
+      - run: pnpm lint
+      - run: pnpm test:typecheck && pnpm test
+      - run: pnpm build
