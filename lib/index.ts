@@ -1,5 +1,4 @@
 export { parseWebhookResponse } from "./models/parse-webhook.js";
-
 export type {
   AssetEvents,
   AssetMessage,
@@ -32,3 +31,4 @@ export {
   parseSignedWebhookResponse,
   replaceLinebreaks,
 } from "./signatures/signature-helper.js";
+export type { ParseResult } from "./utils/types.js";
