@@ -1,6 +1,7 @@
 {
   "name": "@kontent-ai/webhook-helper",
   "version": "4.0.0-0",
+  "packageManager": "pnpm@10.23.0",
   "description": "This utility helps with webhook notifications from Kontent.ai",
   "private": false,
   "repository": {
@@ -19,7 +20,7 @@
     "test": "vitest run",
     "test:typecheck": "tsc --noEmit -p tsconfig.test.json",
     "build": "tsc -m esnext --outDir dist --p tsconfig.prod.json",
-    "prepare": "npm run build",
+    "prepare": "pnpm build",
     "lint": "eslint .",
     "biome": "biome format --write lib",
     "biome:check": "biome check lib"
@@ -34,6 +35,7 @@
     "@biomejs/biome": "^2.3.4",
     "@kontent-ai/biome-config": "^0.5.1",
     "@kontent-ai/eslint-config": "^2.1.0",
+    "@types/node": "^24.10.1",
     "@typescript-eslint/eslint-plugin": "^8.46.3",
     "@typescript-eslint/parser": "^8.46.3",
     "eslint": "^9.39.1",
