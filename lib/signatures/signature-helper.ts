@@ -1,6 +1,7 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
-import { type ParseResult, parseWebhookResponse } from "../models/parse-webhook.js";
+import { parseWebhookResponse } from "../models/parse-webhook.js";
 import type { WebhookResponse } from "../models/webhook-schemas.js";
+import type { ParseResult } from "../utils/types.js";
 
 export const parseSignedWebhookResponse = (
   jsonPayload: string,
