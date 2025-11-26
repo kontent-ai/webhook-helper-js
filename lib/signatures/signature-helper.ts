@@ -31,7 +31,7 @@ export const isSignatureValid = (
   secret: string,
   signature: string,
 ): boolean => {
-  const expectedSignature = getHashFromString(jsonPayload, secret);
+  const expectedSignature = getHashFromString(replaceLinebreaks(jsonPayload), secret);
 
   if (expectedSignature.length !== signature.length) {
     return false;
@@ -50,4 +50,4 @@ const getHashFromString = (jsonPayload: string, secret: string): string =>
 /**
  * Normalizes line breaks in a string by replacing all line break variations with CRLF (`\r\n`).
  */
-export const replaceLinebreaks = (data: string): string => data.replace(/[\r\n]+/gm, "\r\n");
+const replaceLinebreaks = (data: string): string => data.replace(/[\r\n]+/gm, "\r\n");
