@@ -3,17 +3,23 @@ import { parseWebhookResponse } from "../models/parse-webhook.js";
 import type { WebhookResponse } from "../models/webhook-schemas.js";
 import type { ParseResult } from "../utils/types.js";
 
-export const parseSignedWebhookResponse = (
-  jsonPayload: string,
-  secret: string,
-  signature: string,
-): ParseResult<WebhookResponse> => {
-  if (!isSignatureValid(jsonPayload, secret, signature)) {
+export type SignatureParams = Readonly<{
+  payload: string;
+  secret: string;
+  signature: string;
+}>;
+
+export const parseSignedWebhookResponse = ({
+  payload,
+  secret,
+  signature,
+}: SignatureParams): ParseResult<WebhookResponse> => {
+  if (!isSignatureValid({ payload, secret, signature })) {
     return { success: false, error: new Error("Webhook signature validation failed") };
   }
 
   try {
-    const parsedPayload = JSON.parse(jsonPayload) as unknown;
+    const parsedPayload = JSON.parse(payload) as unknown;
 
     return parseWebhookResponse(parsedPayload);
   } catch (error) {
@@ -26,12 +32,8 @@ export const parseSignedWebhookResponse = (
   }
 };
 
-export const isSignatureValid = (
-  jsonPayload: string,
-  secret: string,
-  signature: string,
-): boolean => {
-  const expectedSignature = getHashFromString(replaceLinebreaks(jsonPayload), secret);
+export const isSignatureValid = ({ payload, secret, signature }: SignatureParams): boolean => {
+  const expectedSignature = getHashFromString(replaceLinebreaks(payload), secret);
 
   if (expectedSignature.length !== signature.length) {
     return false;

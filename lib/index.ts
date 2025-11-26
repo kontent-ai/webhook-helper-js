@@ -26,6 +26,7 @@ export type {
   WebhookResponse,
 } from "./models/webhook-schemas.js";
 export { SIGNATURE_HEADER } from "./signatures/constants.js";
+export type { SignatureParams } from "./signatures/signature-helper.js";
 export {
   isSignatureValid,
   parseSignedWebhookResponse,
