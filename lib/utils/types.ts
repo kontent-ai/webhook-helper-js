@@ -1,1 +1,3 @@
-export type ParseResult<T> = { success: true; data: T } | { success: false; error: Error };
+export type ParseResult<T> = Readonly<
+  { success: true; data: T } | { success: false; error: Error }
+>;
