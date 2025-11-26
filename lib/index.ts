@@ -29,6 +29,5 @@ export { SIGNATURE_HEADER } from "./signatures/constants.js";
 export {
   isSignatureValid,
   parseSignedWebhookResponse,
-  replaceLinebreaks,
 } from "./signatures/signature-helper.js";
 export type { ParseResult } from "./utils/types.js";
