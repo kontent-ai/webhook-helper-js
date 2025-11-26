@@ -74,36 +74,36 @@ describe("# Signatures", () => {
 	describe("isSignatureValid", () => {
 		describe("Basic Functionality", () => {
 			it("should return true for valid signature, payload, and secret", () => {
-				expect(isSignatureValid(payloadString, secret, validSignature)).toBe(true);
+				expect(isSignatureValid({ payload: payloadString, secret, signature: validSignature })).toBe(true);
 			});
 
 			it("should return false for incorrect signature", () => {
-				expect(isSignatureValid(payloadString, secret, "invalid_signature")).toBe(
+				expect(isSignatureValid({ payload: payloadString, secret, signature: "invalid_signature" })).toBe(
 					false,
 				);
 			});
 
 			it("should return false for incorrect secret", () => {
 				const wrongSecret = "wrong_secret_key_here";
-				expect(isSignatureValid(payloadString, wrongSecret, validSignature)).toBe(
+				expect(isSignatureValid({ payload: payloadString, secret: wrongSecret, signature: validSignature })).toBe(
 					false,
 				);
 			});
 
 			it("should return false for modified payload", () => {
 				const modifiedPayload = '{"notifications":[{"modified":"data"}]}';
-				expect(isSignatureValid(modifiedPayload, secret, validSignature)).toBe(false);
+				expect(isSignatureValid({ payload: modifiedPayload, secret, signature: validSignature })).toBe(false);
 			});
 		});
 	});
 
 	describe("parseSignedWebhookResponse (integration)", () => {
 		it("should validate signature and parse webhook successfully", () => {
-			const result = parseSignedWebhookResponse(
-				payloadString,
+			const result = parseSignedWebhookResponse({
+				payload: payloadString,
 				secret,
-				validSignature,
-			);
+				signature: validSignature,
+			});
 
 			expect(result.success).toBe(true);
 			if (result.success) {
@@ -112,11 +112,11 @@ describe("# Signatures", () => {
 		});
 
 		it("should return error for invalid signature", () => {
-			const result = parseSignedWebhookResponse(
-				payloadString,
+			const result = parseSignedWebhookResponse({
+				payload: payloadString,
 				secret,
-				"invalid_signature",
-			);
+				signature: "invalid_signature",
+			});
 
 			expect(result.success).toBe(false);
 			if (!result.success) {
