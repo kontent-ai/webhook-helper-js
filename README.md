@@ -29,12 +29,16 @@ import { parseSignedWebhookResponse, SIGNATURE_HEADER, ParseResult, WebhookRespo
 
 const parseWebhookRequest = async (
   request: Request,
-  secret: string
+  secret: string,
 ): Promise<ParseResult<WebhookResponse>> => {
-  const signature = request.headers.get(SIGNATURE_HEADER);
-  const body = await request.text();
+  const signature = request.headers.get(SIGNATURE_HEADER) ?? "";
+  const payload = await request.text();
 
-  return parseSignedWebhookResponse(body, secret, signature);
+  return parseSignedWebhookResponse({
+    payload,
+    secret,
+    signature,
+  });
 };
 
 const handleWebhook = async (request: Request) => {
@@ -63,7 +67,7 @@ The library provides two main parsing functions:
 ```typescript
 import { parseSignedWebhookResponse } from '@kontent-ai/webhook-helper';
 
-const result = parseSignedWebhookResponse(body, secret, signature);
+const result = parseSignedWebhookResponse({payload, secret, signature});
 
 if (!result.success) {
   console.error('Validation failed:', result.error);
@@ -171,9 +175,9 @@ import { isSignatureValid, replaceLinebreaks, SIGNATURE_HEADER } from '@kontent-
 
 const verifyWebhookSignature = async (request: Request, secret: string): Promise<boolean> => {
   const signature = request.headers.get(SIGNATURE_HEADER);
-  const body = await request.text();
+  const payload = await request.text();
 
-  return isSignatureValid(replaceLinebreaks(body), secret, signature);
+  return isSignatureValid({payload, secret, signature});
 }
 
 if (!await verifyWebhookSignature(request, 'your-webhook-secret')) {
