@@ -1,6 +1,6 @@
 {
   "name": "@kontent-ai/webhook-helper",
-  "version": "4.0.0-0",
+  "version": "4.0.0-1",
   "packageManager": "pnpm@10.23.0",
   "description": "This utility helps with webhook notifications from Kontent.ai",
   "private": false,
