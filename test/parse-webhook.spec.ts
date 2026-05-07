@@ -87,6 +87,55 @@ describe("Webhook Validation", () => {
 		],
 	} as const satisfies WebhookResponse;
 
+	const validPreviewChangedWebhookPayload = {
+		notifications: [
+			{
+				object_type: "content_item",
+				data: {
+					system: {
+						id: "2c62edf8-e8e4-400b-8873-20ca1bd34317",
+						name: "Testpage Domenik",
+						codename: "testpage_domenik",
+						collection: "default",
+						workflow: "default",
+						workflow_step: "draft",
+						language: "de_CH",
+						type: "contentpage",
+						last_modified: "2026-05-07T08:34:58.8820970Z",
+					},
+				},
+				message: {
+					environment_id: "2b46a6a3-b5cf-01c8-b12c-74c0346d8776",
+					object_type: "content_item",
+					action: "changed",
+					delivery_slot: "preview",
+				},
+			},
+		],
+	} as const satisfies WebhookResponse;
+
+	const validAssetChangedWebhookPayload = {
+		notifications: [
+			{
+				object_type: "asset",
+				data: {
+					system: {
+						id: "bb8f127f-1920-4454-a89a-0609aba8ea6f",
+						name: "My Asset",
+						codename: "my_asset",
+						last_modified: "2024-03-25T07:55:57.0563735Z",
+					},
+				},
+				message: {
+					environment_id: "0f5b6cb2-ea82-014e-ac74-f71e7e8b6aee",
+					object_type: "asset",
+					action: "changed",
+					delivery_slot: "published",
+				},
+			},
+		],
+	} as const satisfies WebhookResponse;
+
 	const validAssetWebhookPayload = {
 		notifications: [
 			{
@@ -151,6 +200,35 @@ describe("Webhook Validation", () => {
 					if (notification.message.action === "workflow_step_changed") {
 						expect(notification.message.action_context.previous_workflow_step).toBe("draft");
 					}
+				}
+			}
+		});
+
+		it("should parse valid preview content item webhook with action 'changed' (issue #39)", () => {
+			const result = parseWebhookResponse(validPreviewChangedWebhookPayload);
+
+			expect(result.success).toBe(true);
+			if (result.success) {
+				expect(result.data).toEqual(validPreviewChangedWebhookPayload);
+				const notification = result.data.notifications[0];
+				expect(notification.object_type).toBe("content_item");
+				if (notification.object_type === "content_item") {
+					expect(notification.message.action).toBe("changed");
+					expect(notification.message.delivery_slot).toBe("preview");
+				}
+			}
+		});
+
+		it("should parse valid asset webhook with action 'changed'", () => {
+			const result = parseWebhookResponse(validAssetChangedWebhookPayload);
+
+			expect(result.success).toBe(true);
+			if (result.success) {
+				expect(result.data).toEqual(validAssetChangedWebhookPayload);
+				const notification = result.data.notifications[0];
+				expect(notification.object_type).toBe("asset");
+				if (notification.object_type === "asset") {
+					expect(notification.message.action).toBe("changed");
 				}
 			}
 		});

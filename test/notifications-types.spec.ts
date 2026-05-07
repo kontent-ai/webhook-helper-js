@@ -59,7 +59,7 @@ describe("Type Safety Tests", () => {
           } else {
             expectTypeOf(notification.message).toEqualTypeOf<ContentItemPreviewMessage>();
             expectTypeOf(notification.message.action).toEqualTypeOf<
-              "created" | "deleted" | "metadata_changed"
+              "created" | "changed" | "deleted" | "metadata_changed"
             >();
           }
         } else {

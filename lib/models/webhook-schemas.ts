@@ -2,10 +2,11 @@ import { z } from "zod";
 
 export const webhookDeliverySlotSchema = z.enum(["published", "preview"]);
 
-export const assetEventsSchema = z.enum(["created", "deleted", "metadata_changed"]);
+export const assetEventsSchema = z.enum(["created", "changed", "deleted", "metadata_changed"]);
 
 export const contentItemPreviewEventsSchema = z.enum([
   "created",
+  "changed",
   "deleted",
   "workflow_step_changed",
   "metadata_changed",
@@ -59,7 +60,7 @@ export const assetMessageSchema = webhookMessageCommonSchema.extend({
 export const contentItemPreviewMessageSchema = webhookMessageCommonSchema.extend({
   object_type: z.literal("content_item"),
   delivery_slot: z.literal("preview"),
-  action: z.enum(["created", "deleted", "metadata_changed"]),
+  action: z.enum(["created", "changed", "deleted", "metadata_changed"]),
 });
 
 export const contentItemWorkflowChangedPreviewMessageSchema = webhookMessageCommonSchema.extend({
