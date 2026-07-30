@@ -1,3 +1,7 @@
 # Delay installing newly published versions until they are at least 3 days
 # old (3 * 24 * 60 minutes). Applies to all dependencies, including transitive.
 minimumReleaseAge: 4320
+
+# First-party Kontent.ai dev tooling is exempt from the delay above.
+minimumReleaseAgeExclude:
+  - "@kontent-ai/eslint-config"
