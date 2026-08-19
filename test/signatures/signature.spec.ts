@@ -38,7 +38,9 @@ describe("# Signatures", () => {
 		],
 	} as const;
 
-	const payloadString = JSON.stringify(rawPayload, null, 2);
+	// The captured signature was computed by Kontent.ai over the wire payload, which uses CRLF
+	// line endings. JSON.stringify produces LF, so the fixture must be converted back to CRLF.
+	const payloadString = JSON.stringify(rawPayload, null, 2).replace(/\n/g, "\r\n");
 
 	const expectedParsedPayload = {
 		notifications: [
@@ -93,6 +95,11 @@ describe("# Signatures", () => {
 			it("should return false for modified payload", () => {
 				const modifiedPayload = '{"notifications":[{"modified":"data"}]}';
 				expect(isSignatureValid({ payload: modifiedPayload, secret, signature: validSignature })).toBe(false);
+			});
+
+			it("should return false when line endings differ from the signed payload", () => {
+				const lfPayload = payloadString.replace(/\r\n/g, "\n");
+				expect(isSignatureValid({ payload: lfPayload, secret, signature: validSignature })).toBe(false);
 			});
 		});
 	});
