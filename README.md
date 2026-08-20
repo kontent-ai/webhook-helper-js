@@ -171,7 +171,7 @@ result.data.notifications.forEach(notification => {
 If you need to verify signatures separately from parsing, use `isSignatureValid()`:
 
 ```typescript
-import { isSignatureValid, replaceLinebreaks, SIGNATURE_HEADER } from '@kontent-ai/webhook-helper';
+import { isSignatureValid, SIGNATURE_HEADER } from '@kontent-ai/webhook-helper';
 
 const verifyWebhookSignature = async (request: Request, secret: string): Promise<boolean> => {
   const signature = request.headers.get(SIGNATURE_HEADER);
@@ -185,16 +185,4 @@ if (!await verifyWebhookSignature(request, 'your-webhook-secret')) {
 }
 ```
 
-The payload must be exactly the same (including whitespaces) as the original webhook body. If you've parsed the payload into an object, you can reconstruct it:
-
-```typescript
-const payload = JSON.stringify(jsonPayload, null, 2);
-```
-
-The `replaceLinebreaks()` function normalizes line endings to prevent signature mismatches caused by Windows line breaks:
-
-```typescript
-import { replaceLinebreaks } from '@kontent-ai/webhook-helper';
-
-const normalizedPayload = replaceLinebreaks(payload);
-```
+The payload must be the raw request body exactly as received — byte for byte, including whitespace and line endings. Do not parse and re-serialize it before validation, as any change to formatting or line endings produces a different hash and the validation fails.

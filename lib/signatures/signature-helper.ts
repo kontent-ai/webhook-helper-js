@@ -33,7 +33,7 @@ export const parseSignedWebhookResponse = ({
 };
 
 export const isSignatureValid = ({ payload, secret, signature }: SignatureParams): boolean => {
-  const expectedSignature = getHashFromString(replaceLinebreaks(payload), secret);
+  const expectedSignature = getHashFromString(payload, secret);
 
   if (expectedSignature.length !== signature.length) {
     return false;
@@ -48,8 +48,3 @@ export const isSignatureValid = ({ payload, secret, signature }: SignatureParams
 
 const getHashFromString = (jsonPayload: string, secret: string): string =>
   createHmac("sha256", secret).update(jsonPayload, "utf8").digest("base64");
-
-/**
- * Normalizes line breaks in a string by replacing all line break variations with CRLF (`\r\n`).
- */
-const replaceLinebreaks = (data: string): string => data.replace(/[\r\n]+/gm, "\r\n");
